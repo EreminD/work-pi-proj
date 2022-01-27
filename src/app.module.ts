@@ -3,10 +3,10 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { DbModule } from './db/db.module';
-import { ReferenceEntity } from './db/entity/reference.entity';
+import { Capabilities } from './db/entity/capabilities.entity';
 
 @Module({
-  imports: [DbModule, TypeOrmModule.forFeature([ReferenceEntity])],
+  imports: [DbModule, TypeOrmModule.forFeature([Capabilities])],
   controllers: [AppController],
   providers: [AppService],
 })

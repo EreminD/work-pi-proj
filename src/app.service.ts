@@ -1,13 +1,13 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { ReferenceEntity } from './db/entity/reference.entity';
+import { Capabilities } from './db/entity/capabilities.entity';
 
 @Injectable()
 export class AppService {
-  constructor(@InjectRepository(ReferenceEntity) private readonly refRepository: Repository<ReferenceEntity>) {}
+  constructor(@InjectRepository(Capabilities) private readonly capsRepository: Repository<Capabilities>) {}
 
   getHello(): any {
-    return this.refRepository.find()
+    return this.capsRepository.find()
   }
 }

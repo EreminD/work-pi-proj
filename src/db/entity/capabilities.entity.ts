@@ -1,15 +1,12 @@
 import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
-@Entity({ name: "reference" })
-export class ReferenceEntity {
+@Entity({ name: "capabilities" })
+export class Capabilities {
   @PrimaryGeneratedColumn()
   id!: number;
 
-  @Column({ name: "ref_name" })
-  refName?: string;
-
   @Column()
-  grade!: number;
+  capability!: string;
 
   @Column({ name: "created_at" })
   createdAt!: Date;
