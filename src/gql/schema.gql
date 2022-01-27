@@ -1,0 +1,30 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type CultureFit {
+  """Example field (placeholder)"""
+  id: ID!
+  name: String!
+  createdAt: DateTime!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type Query {
+  findAll: [CultureFit!]!
+  findOne(id: Int!): CultureFit!
+}
+
+type Mutation {
+  createCultureFit(createCultureFitInput: CreateCultureFitInput!): CultureFit!
+  removeOne(id: Int!): CultureFit!
+}
+
+input CreateCultureFitInput {
+  name: String!
+  createdAt: DateTime!
+}

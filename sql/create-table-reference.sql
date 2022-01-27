@@ -1,6 +1,0 @@
-create TABLE REFERENCE (
-    id SERIAL PRIMARY KEY,
-    ref_name VARCHAR(50) NOT NULL,
-    grade INTEGER DEFAULT 1,
-    created_at TIMESTAMP DEFAULT NOW()
-)
