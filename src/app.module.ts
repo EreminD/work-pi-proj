@@ -7,20 +7,22 @@ import { CultureFitModule } from './culture-fit/culture-fit.module';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { CultureFit } from './db/entities/culture-fit.entity';
+import { CapabilitiesModule } from './capabilities/capabilities.module';
 
 @Module({
   imports: [
     GraphQLModule.forRoot({ 
       debug: true, 
       playground: true,
-      include: [CultureFitModule, AuthModule],
+      include: [CultureFitModule, AuthModule, CapabilitiesModule],
       autoSchemaFile: join(process.cwd(), 'src/gql/schema.gql')
     }),
     AuthModule,
     UsersModule,
     DbModule, 
     CultureFitModule,
-    UsersModule
+    UsersModule,
+    CapabilitiesModule
   ]
 })
 export class AppModule {}

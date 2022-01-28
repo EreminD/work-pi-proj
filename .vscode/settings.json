@@ -9,16 +9,6 @@
             "database": "compose",
             "username": "admin",
             "password": "NISBQAAQTIWXVKQG"
-        },
-        {
-            "previewLimit": 50,
-            "server": "portal5575-9.prominent-postgresql-50.4103083814.composedb.com",
-            "port": 37725,
-            "driver": "PostgreSQL",
-            "name": "users",
-            "database": "users",
-            "username": "admin",
-            "password": "NISBQAAQTIWXVKQG"
         }
     ]
 }

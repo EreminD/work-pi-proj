@@ -2,16 +2,10 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-type User {
-  id: Float!
-  name: String!
-  pass: String!
-}
-
-type CultureFit {
-  """Example field (placeholder)"""
+type Capabilities {
   id: ID!
-  name: String!
+  capability: String!
+  isActive: Boolean!
   createdAt: DateTime!
 }
 
@@ -20,14 +14,29 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 """
 scalar DateTime
 
+type User {
+  id: Float!
+  name: String!
+  pass: String!
+}
+
+type CultureFit {
+  id: ID!
+  name: String!
+  createdAt: DateTime!
+}
+
 type AuthType {
   user: User!
   token: String!
 }
 
 type Query {
-  findAll: [CultureFit!]!
-  findOne(id: Int!): CultureFit!
+  getAllCultureFit: [CultureFit!]!
+  getCultureFitById(id: Int!): CultureFit!
+  getAllCapabilities: [Capabilities!]!
+  getActiveCapabilities: [Capabilities!]!
+  getCapabilityById(id: Int!): Capabilities!
 }
 
 type Mutation {
@@ -35,6 +44,9 @@ type Mutation {
   removeOne(id: Int!): CultureFit!
   createCultureFit(createCultureFitInput: CreateCultureFitInput!): CultureFit!
   updateCultureFit(updateCultureFitInput: UpdateCultureFitInput!, id: Int!): Boolean!
+  updateCapability(updateCapabilityInput: UpdateCapabilityInput!, id: Int!): Capabilities!
+  removeCapability(id: Int!): Capabilities!
+  createCapability(createCapabilityInput: CreateCapabilityInput!): Capabilities!
 }
 
 input AuthInput {
@@ -49,5 +61,17 @@ input CreateCultureFitInput {
 
 input UpdateCultureFitInput {
   name: String!
+  createdAt: DateTime!
+}
+
+input UpdateCapabilityInput {
+  isActive: Boolean!
+  capability: String!
+  createdAt: DateTime!
+}
+
+input CreateCapabilityInput {
+  isActive: Boolean!
+  capability: String!
   createdAt: DateTime!
 }

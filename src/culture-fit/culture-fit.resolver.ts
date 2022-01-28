@@ -7,7 +7,7 @@ import { PubSub } from 'graphql-subscriptions';
 import { UseGuards } from '@nestjs/common';
 import { GqlAuthGuard } from 'src/auth/jwt.guard';
 
-@Resolver('cultureFir')
+@Resolver('cultureFit')
 export class CultureFitResolver {
   private pubSub = new PubSub()
   
@@ -15,13 +15,13 @@ export class CultureFitResolver {
 
   @Query(returns => [CultureFit])
   @UseGuards(GqlAuthGuard)
-  findAll() {
+  getAllCultureFit() {
     return this.cultureFitService.findAll();
   }
 
   @Query(returns => CultureFit)
   @UseGuards(GqlAuthGuard)
-  findOne(
+  getCultureFitById(
     @Args('id', { type: () => Int }) id: number
   ) {
     return this.cultureFitService.findOne(id);
