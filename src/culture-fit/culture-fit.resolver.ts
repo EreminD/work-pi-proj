@@ -1,36 +1,57 @@
-import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Args, Int, Subscription } from '@nestjs/graphql';
 import { CultureFitService } from './culture-fit.service';
 import { CultureFit } from './entities/culture-fit.entity';
 import { CreateCultureFitInput } from './dto/create-culture-fit.input';
-import { Observable } from 'rxjs';
+import { UpdateCultureFitInput } from './dto/update-culture-fit.input';
+import { PubSub } from 'graphql-subscriptions';
+import { UseGuards } from '@nestjs/common';
+import { GqlAuthGuard } from 'src/auth/jwt.guard';
 
 @Resolver('cultureFir')
 export class CultureFitResolver {
+  private pubSub = new PubSub()
+  
   constructor(private readonly cultureFitService: CultureFitService) {}
 
-  @Mutation(() => CultureFit)
-  createCultureFit(@Args('createCultureFitInput') createCultureFitInput: CreateCultureFitInput) {
-    console.log(createCultureFitInput)
-    return this.cultureFitService.create(createCultureFitInput);
-  }
-
   @Query(returns => [CultureFit])
+  @UseGuards(GqlAuthGuard)
   findAll() {
     return this.cultureFitService.findAll();
   }
 
   @Query(returns => CultureFit)
+  @UseGuards(GqlAuthGuard)
   findOne(
     @Args('id', { type: () => Int }) id: number
-    ) {
+  ) {
     return this.cultureFitService.findOne(id);
   }
 
   @Mutation(returns => CultureFit, {name: 'removeOne'})
+  @UseGuards(GqlAuthGuard)
   removeCultureFit(
     @Args('id', { type: () => Int }) id: number
-    ) {
-      console.log(`Deleting CultureFit ${id}`)
-      return this.cultureFitService.remove(id);
+  ) {
+    return this.cultureFitService.remove(id);
+  }
+
+  @Mutation(() => CultureFit)
+  @UseGuards(GqlAuthGuard)
+  createCultureFit(
+    @Args('createCultureFitInput') createCultureFitInput: CreateCultureFitInput
+  ) 
+  {
+    return this.cultureFitService.create(createCultureFitInput)
+  }
+
+  @Mutation(() => Boolean)
+  @UseGuards(GqlAuthGuard)
+  updateCultureFit(
+    @Args('id', { type: () => Int }) id: number,
+    @Args('updateCultureFitInput') updateCultureFitInput: UpdateCultureFitInput
+  ) 
+  {
+    return this.cultureFitService.update(id, updateCultureFitInput);
   }
 }
+

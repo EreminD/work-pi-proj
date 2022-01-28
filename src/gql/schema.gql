@@ -2,6 +2,12 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type User {
+  id: Float!
+  name: String!
+  pass: String!
+}
+
 type CultureFit {
   """Example field (placeholder)"""
   id: ID!
@@ -14,17 +20,34 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 """
 scalar DateTime
 
+type AuthType {
+  user: User!
+  token: String!
+}
+
 type Query {
   findAll: [CultureFit!]!
   findOne(id: Int!): CultureFit!
 }
 
 type Mutation {
-  createCultureFit(createCultureFitInput: CreateCultureFitInput!): CultureFit!
+  login(data: AuthInput!): AuthType!
   removeOne(id: Int!): CultureFit!
+  createCultureFit(createCultureFitInput: CreateCultureFitInput!): CultureFit!
+  updateCultureFit(updateCultureFitInput: UpdateCultureFitInput!, id: Int!): Boolean!
+}
+
+input AuthInput {
+  username: String!
+  pass: String!
 }
 
 input CreateCultureFitInput {
+  name: String!
+  createdAt: DateTime!
+}
+
+input UpdateCultureFitInput {
   name: String!
   createdAt: DateTime!
 }

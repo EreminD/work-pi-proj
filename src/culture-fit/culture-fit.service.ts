@@ -1,34 +1,44 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { CultureFit } from 'src/db/entity/culture-fit.entity';
 import { Repository } from 'typeorm';
+import { CultureFit } from 'src/db/entities/culture-fit.entity';
 import { CreateCultureFitInput } from './dto/create-culture-fit.input';
 import { UpdateCultureFitInput } from './dto/update-culture-fit.input';
 
 @Injectable()
 export class CultureFitService {
-  constructor(@InjectRepository(CultureFit) private readonly capsRepository: Repository<CultureFit>) {}
+  constructor(@InjectRepository(CultureFit) private readonly cultureFitRepository: Repository<CultureFit>) {}
   
   findAll(): Promise<Array<CultureFit>> {
-    return this.capsRepository.find()
+    return this.cultureFitRepository.find()
   }
 
   findOne(id: number): Promise<CultureFit> {
-    return this.capsRepository.findOne(id)
+    console.log(`CultureFit by id: ${id}`)
+    return this.cultureFitRepository.findOne(id)
   }
 
   remove(id: number) {
-    return this.capsRepository.delete(id)
-  
+    console.log(`Delete CultureFit by id: ${id}`)
+    this.cultureFitRepository.delete(id)
+
   }
 
   create(createCultureFitInput: CreateCultureFitInput) {
-    return this.capsRepository.save(createCultureFitInput);
+    console.log(`Create new CultureFit`)
+    console.log(createCultureFitInput)
+    return this.cultureFitRepository.save(createCultureFitInput);
   }
 
   update(id: number, updateCultureFitInput: UpdateCultureFitInput) {
-    return `This action updates a #${id} cultureFit`;
-  }
+    console.log(`Update CultureFit ${id}`)
+    console.log(updateCultureFitInput)
 
- 
+    return this.cultureFitRepository.save({
+      id: id,
+      name: updateCultureFitInput.name,
+      createdAt: updateCultureFitInput.createdAt
+      
+})
+  } 
 }
