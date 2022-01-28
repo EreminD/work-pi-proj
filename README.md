@@ -1,9 +1,8 @@
 [Postman collection](WorkPi.postman_collection.json)
 
-||User||Pass||
-|user 1|pas$|
-|user 2|pas$|
-|user 3|pas$|
+1. user 1:pas$
+2. user 2:pas$
+3. user 3:pas$
 
 ## Installation
 ```bash
