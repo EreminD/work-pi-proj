@@ -4,6 +4,5 @@ export const db: any =  {
     port : 37725,
     username : 'admin',
     password : 'NISBQAAQTIWXVKQG',
-    database : 'compose',
-    user_database: 'users'
+    database : 'compose'
 }
