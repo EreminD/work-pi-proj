@@ -1,4 +1,4 @@
-(Postman collection)[./WorkPi.postman_collection.json]
+(Postman collection)[https://github.com/EreminD/work-pi-proj/blob/master/WorkPi.postman_collection.json]
 
 ## Installation
 ```bash
