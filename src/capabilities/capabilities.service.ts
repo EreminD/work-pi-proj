@@ -1,7 +1,7 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Capabilities } from 'src/db/entities/capabilities.entity';
 import { Repository } from 'typeorm';
+import { Capabilities } from 'src/db/entities/capabilities.entity';
 import { CreateCapabilityInput } from './dto/create-capability.input';
 import { UpdateCapabilityInput } from './dto/update-capability.input';
 
@@ -33,8 +33,12 @@ export class CapabilitiesService {
   })
 }
 
-  remove(id: number) {
-    console.log(`Delete CultureFit by id: ${id}`)
+  async remove(id: number) {
+    const cap = await this.findOne(id)
+    if (!cap) {
+      throw new HttpException(`No such Capability: ${id}`, 404)
+    }
     this.capsRepository.delete(id)
+    return cap;
   }
 }

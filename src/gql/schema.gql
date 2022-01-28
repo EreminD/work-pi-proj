@@ -14,16 +14,24 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 """
 scalar DateTime
 
-type User {
-  id: Float!
-  name: String!
-  pass: String!
-}
-
 type CultureFit {
   id: ID!
   name: String!
   createdAt: DateTime!
+}
+
+type Teambuilding {
+  id: ID!
+  event_name: String!
+  event_date: DateTime!
+  participants: Int!
+  createdAt: DateTime!
+}
+
+type User {
+  id: Float!
+  name: String!
+  pass: String!
 }
 
 type AuthType {
@@ -37,16 +45,21 @@ type Query {
   getAllCapabilities: [Capabilities!]!
   getActiveCapabilities: [Capabilities!]!
   getCapabilityById(id: Int!): Capabilities!
+  geAllTeambuildings: [Teambuilding!]!
+  getTeambuildingById(id: Int!): Teambuilding!
 }
 
 type Mutation {
   login(data: AuthInput!): AuthType!
-  removeOne(id: Int!): CultureFit!
+  removeCultureFit(id: Int!): CultureFit!
   createCultureFit(createCultureFitInput: CreateCultureFitInput!): CultureFit!
-  updateCultureFit(updateCultureFitInput: UpdateCultureFitInput!, id: Int!): Boolean!
+  updateCultureFit(updateCultureFitInput: UpdateCultureFitInput!, id: Int!): CultureFit!
   updateCapability(updateCapabilityInput: UpdateCapabilityInput!, id: Int!): Capabilities!
   removeCapability(id: Int!): Capabilities!
   createCapability(createCapabilityInput: CreateCapabilityInput!): Capabilities!
+  createTeambulding(createTeambuldingInput: CreateTeambuildingInput!): Teambuilding!
+  updateTeambulding(updateTeambuldingInput: UpdateTeambuildingInput!, id: Int!): Teambuilding!
+  removeTeambulding(id: Int!): Teambuilding!
 }
 
 input AuthInput {
@@ -73,5 +86,19 @@ input UpdateCapabilityInput {
 input CreateCapabilityInput {
   isActive: Boolean!
   capability: String!
+  createdAt: DateTime!
+}
+
+input CreateTeambuildingInput {
+  eventName: String!
+  eventDate: DateTime!
+  participants: Int!
+  createdAt: DateTime!
+}
+
+input UpdateTeambuildingInput {
+  eventName: String!
+  eventDate: DateTime!
+  participants: Int!
   createdAt: DateTime!
 }

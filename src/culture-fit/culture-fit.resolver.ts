@@ -1,16 +1,13 @@
-import { Resolver, Query, Mutation, Args, Int, Subscription } from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
+import { UseGuards } from '@nestjs/common';
 import { CultureFitService } from './culture-fit.service';
-import { CultureFit } from './entities/culture-fit.entity';
 import { CreateCultureFitInput } from './dto/create-culture-fit.input';
 import { UpdateCultureFitInput } from './dto/update-culture-fit.input';
-import { PubSub } from 'graphql-subscriptions';
-import { UseGuards } from '@nestjs/common';
 import { GqlAuthGuard } from 'src/auth/jwt.guard';
+import { CultureFit } from 'src/db/entities/culture-fit.entity';
 
 @Resolver('cultureFit')
 export class CultureFitResolver {
-  private pubSub = new PubSub()
-  
   constructor(private readonly cultureFitService: CultureFitService) {}
 
   @Query(returns => [CultureFit])
@@ -27,7 +24,7 @@ export class CultureFitResolver {
     return this.cultureFitService.findOne(id);
   }
 
-  @Mutation(returns => CultureFit, {name: 'removeOne'})
+  @Mutation(() => CultureFit)
   @UseGuards(GqlAuthGuard)
   removeCultureFit(
     @Args('id', { type: () => Int }) id: number
@@ -44,7 +41,7 @@ export class CultureFitResolver {
     return this.cultureFitService.create(createCultureFitInput)
   }
 
-  @Mutation(() => Boolean)
+  @Mutation(() => CultureFit)
   @UseGuards(GqlAuthGuard)
   updateCultureFit(
     @Args('id', { type: () => Int }) id: number,

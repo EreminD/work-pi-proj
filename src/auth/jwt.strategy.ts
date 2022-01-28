@@ -17,8 +17,6 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     }
   
     async validate(payload: { username: string; sub: User['id'] }) {
-
-      console.log(payload.sub)
       const user = this.userService.findById(payload.sub)
 
       if (!user) {

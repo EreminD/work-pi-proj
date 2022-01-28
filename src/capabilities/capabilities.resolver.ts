@@ -1,9 +1,9 @@
 import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
+import { UseGuards } from '@nestjs/common';
 import { CapabilitiesService } from './capabilities.service';
 import { CreateCapabilityInput } from './dto/create-capability.input';
 import { UpdateCapabilityInput } from './dto/update-capability.input';
 import { GqlAuthGuard } from 'src/auth/jwt.guard';
-import { UseGuards } from '@nestjs/common';
 import { Capabilities } from 'src/db/entities/capabilities.entity';
 
 @Resolver('capability')

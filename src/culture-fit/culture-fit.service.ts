@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CultureFit } from 'src/db/entities/culture-fit.entity';
@@ -14,31 +14,27 @@ export class CultureFitService {
   }
 
   findOne(id: number): Promise<CultureFit> {
-    console.log(`CultureFit by id: ${id}`)
     return this.cultureFitRepository.findOne(id)
   }
 
-  remove(id: number) {
-    console.log(`Delete CultureFit by id: ${id}`)
-    this.cultureFitRepository.delete(id)
-
+  async remove(id: number) {
+    const cf = await this.findOne(id);
+    if (!cf){
+      throw new HttpException(`No such CultureFit: ${id}`, 404)
+    }
+    this.cultureFitRepository.delete(id);
+    return cf;
   }
 
   create(createCultureFitInput: CreateCultureFitInput) {
-    console.log(`Create new CultureFit`)
-    console.log(createCultureFitInput)
     return this.cultureFitRepository.save(createCultureFitInput);
   }
 
   update(id: number, updateCultureFitInput: UpdateCultureFitInput) {
-    console.log(`Update CultureFit ${id}`)
-    console.log(updateCultureFitInput)
-
     return this.cultureFitRepository.save({
       id: id,
       name: updateCultureFitInput.name,
       createdAt: updateCultureFitInput.createdAt
-      
-})
+    })
   } 
 }
